@@ -1,0 +1,93 @@
+/*
+int doesOverlap(vector<int> &a, vector<int> &b) {
+    /*
+    int count = 0;
+    for(int i=0;i<a.size();i++){
+        if(min(a[i], b[i])>=max(a[i+1], b[i+1])){
+            count++;
+            //return true;
+        }
+        return count;
+        //return false;
+    }
+    //return (min(a.end, b.end) >= max(a.start, b.start)); 
+    
+    int i = 0;
+    int j = 0;
+    int currentOverlap=0;
+    int maxOverlap=INT_MIN;
+    int m=a.size(),n=b.size();
+    while(i< m && j < n){
+        if(a[i] < b[j]){
+            currentOverlap++;
+            maxOverlap = max(maxOverlap, currentOverlap);
+            i++;
+        }
+        else{
+            currentOverlap--;
+            j++;
+        }
+    }
+    return maxOverlap;
+}
+*/
+bool Solution::hotel(vector<int> &arrive, vector<int> &depart, int K) {
+    /*
+    int rooms=0;
+    int n=arrive.size();
+    pair<int, int> pairt[n];
+    // Storing the respective array 
+    // elements in pairs. 
+    for (int i = 0; i < n; i++)  
+    { 
+        pairt[i].first = arrive[i]; 
+        pairt[i].second = depart[i]; 
+    } 
+    // Sorting the pair array. 
+    sort(pairt, pairt + n); 
+    // Modifying original arrays 
+    for (int i = 0; i < n; i++)  { 
+        arrive[i] = pairt[i].first; 
+        depart[i] = pairt[i].second; 
+    }
+    int overlap=doesOverlap(arrive, depart);
+    if(overlap>K)
+        return false;
+    return true;
+    /*
+    if(!overlap){
+        for(int i=0;i<arrive.size();i++){
+            if(arrive[i+1]>depart[i])
+                rooms++;
+        }
+    }
+    else{
+        for(int i=0;i<arrive.size();i++){
+            if(arrive[i+1]<depart[i] && depart[i+1]<depart[i])
+                rooms++;
+        }
+    }
+    if(rooms>K)
+        return false;
+    return true;
+    */
+    sort(arrive.begin(),arrive.end());
+    sort(depart.begin(),depart.end());
+
+    int i=0, j=0, c=0;
+
+    while(i<arrive.size() && j<depart.size()){
+        if(arrive[i]<depart[j]){
+            c++;
+            i++;
+        }
+        else{
+            c--;
+            j++;
+        }
+        if(c>K)
+            return false;
+    }
+    return true;
+}
+
